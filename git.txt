@@ -1,0 +1,274 @@
+Git:
+-----
+DVCS.
+Alternate to GIT- SVN, GITLAB, CVS, mercurial
+
+How to set up the git?
+
+Install git using below command:
+sudo apt-get install git
+
+Verify the git:
+---------------
+git --version
+
+$cd downloads
+$ mkdir gitpro
+$cd gitpro
+
+Git has to identify:
+--------------------
+$git config --global user.name "bhanu"
+$git config --global user.email "bhanu@1234"
+$git config --global push.default "simple"
+
+$git config --list
+
+$mkdir central.git
+$ls
+$cd central.git
+$git init --bare  ( central reposity)
+$cd ..
+$ls( ./gitpro)
+o/p: central.git/
+creating a new local workspace:
+$git clone central.git/ newworkspace1
+$ls
+$cd new workspace01
+$ls
+$touch 1.java
+$ls (1.java)
+$ git status
+$ git add 1.java ( to revert to workspace- git rm --cached filename)
+$ git status
+$ git commit -m "this is our first commmit"
+$ git status
+$ls
+$echo "line1" > 1.java
+$ cat 1.java
+$ git status
+$ git add .
+$ git status
+$ git commit -m "our second commit"
+$ ls
+$ git status
+
+$ git log ( complete ids)
+$ git log -1 ( latest commit)
+$ git log --oneline( without author)
+$ git log --oneline -1
+Open new command prompt and go to central repo
+$ git show 04bcaf36
+these are executed on 2nd prompt
+$ cd central.git/
+$ git log( fatal error)
+
+on first gitbash prompt:
+-------------------
+$ git push
+
+check git log on other terminal( Bare:Master)
+$ git log # i got all the logs because i pushed from my workspace
+            to bare master.
+
+cd .. ( Gitpro)
+$ git clone central.git newworkspace02
+$ ls
+$ cd newworkspace02
+$ ls
+$git log
+$ cat 1.java
+
+------------
+gitpro
+
+git clone central.git/ newworkspace03
+ls
+cd newwworkspace03
+ls
+cat 1.java
+git log
+touch 2.java
+echo "line1"> 2.java
+echo "line2"> 1.java
+cat 1.java
+cat 2.java
+git add .
+git status
+git commit -m "set of changes to be committed"
+git status
+git log ( 3 commit ids)
+
+go to central.git:
+----------------
+git log
+
+goto workspace03:
+----------------
+git push( It will push from workspace to central repository)
+
+goto workspace01:
+--------------------
+
+To get latest changes:
+--------------------
+ls
+git pull
+ls
+cat 1.java
+cat 2.java
+git log
+(push-Workspace to central)
+(pull-central to workspace)
+
+Go to workspace01:
+------------------
+ls
+touch 3.java
+git add .
+git commit -m "added 3.java"
+git log
+
+Go to workspace03:
+--------------------
+ls
+touch 4.java
+git add .
+git commit -m "adding new file4.java"
+git log
+git push
+
+and check in central repo:
+
+git log ( 3.java not available)
+
+workspace01:
+git push( you will get error becuase changes are done)
+
+Update workspace with git pull and then push your changes)
+git pull
+git push
+
+git log -3
+git log --oneline
+git log -1
+git log --oneline --grep "file"
+
+workspace01:
+-----------
+touch 1.class
+git status(untracked files)
+ i want to ignore class files which is
+done for testing during development:
+touch log.txt
+git status
+touch .gitignore
+ls
+echo "1.class"> .gitignore
+echo "log.txt"> .gitignore
+git status
+git add .
+git status
+git commit -m "added .gitignore"
+git status
+touch 2.class
+git status
+cat .gitignore
+vim .gitignore
+*.class
+*.txt
+:wq
+git add .
+git commit -m "added"
+touch 2.class
+git status
+touch 1.txt
+git status
+git push
+
+Branching:
+-------------
+git branch ( to check the existing branches)
+git branch win ( to create a branch name)
+git branch
+ls
+git log --oneline
+
+git checkout win( to switch from one branch to another)
+git branch 
+git log --online( replica of master)
+if i do in win, it is change to this branch only
+win branch:
+touch 5.java
+git add .
+git commit -m "added 5.java"
+git checkout master
+git branch
+ls( not showing 5.java)
+git checkout win
+git log --oneline
+ 
+goto workspace 03"
+git branch( no info to other branches)
+
+changes are available to that branch only.
+
+win
+ls
+git checkout master
+touch 6.java
+git add .
+git commit -m "adding 6.java to master branch"
+ls
+git log --online
+git checkout win
+ls
+git log --oneline
+we cant see 6.java.
+
+win(branch):
+-----------
+git push ( Error because of mismatch 
+from repo to repo)Branch in repo to branch in repo.
+Master to Master will work.
+win branch not available in central repo,
+
+git checout master
+git push ( 6.java is available)
+
+check in central repo:
+git log ( 5.java is not avaible in central repo)
+
+we have to use merge concept:
+
+scenarios:
+1. we have created branch for parallel development
+for ourself:
+central:
+git branch:
+master
+master to master is ok.
+so, we will merge from  win to master
+ and will push master to master of central repo.
+goto master:
+ls
+syntax- git merge source destination
+$ git merge win master
+merge will ask commit id
+we have to add message
+:wq
+ls
+git log --oneline
+
+check in central repo:
+git log
+
+
+
+
+ 
+
+
+
+
+
